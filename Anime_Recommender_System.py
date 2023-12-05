@@ -5,10 +5,16 @@ import re
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
+import os
 
 # data pre-processing
-anime_movies_scrapping = pd.read_csv('Anime_Recommender_System_Scrapping.csv')
-anime_movies = pd.read_csv('Anime_Recommender_System.csv')
+project_dir = os.path.dirname(os.path.abspath(__file__))
+
+anime_movies_scrapping_file_path = os.path.join(project_dir, 'Anime_Recommender_System_Scrapping.csv')
+anime_movies_scrapping = pd.read_csv(anime_movies_scrapping_file_path)
+
+anime_movies_file_path = os.path.join(project_dir, 'Anime_Recommender_System.csv')
+anime_movies = pd.read_csv(anime_movies_file_path)
 
 df = anime_movies_scrapping[['Rank', 'Title', 'Rating', 'Image_URL', 'Episodes', 'Dates', 'Members']].merge(
      anime_movies[['title', 'genres', 'studios', 'producers', 'synopsis']],
